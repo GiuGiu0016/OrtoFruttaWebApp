@@ -39,35 +39,22 @@ th {
 	<h1 style="color: red;">ERRORE</h1>
 	<h2 style="color: red;"><%=messaggio%></h2>
 	<h2 style="color: red;"></h2>
-	<form action="MenuPrincipale.jsp">
-	<input style="background-color: red;color: black;padding: 1%;font-size: 30px" type="submit" value="Vai al menu Principale">
-	</form>
+		<form action="MenuPrincipaleClienti.jsp" style="text-align: right;">
+		<input type="hidden" name="user" id="user" value="<%=user%>">
+		<input style="margin-left:23%;margin-top:0.5%;padding: 8px;" type="submit" value="<===">
 	</div>
 	<%
 		} else {
 	%>
-<!-- Sidebar -->
-<div class="w3-sidebar w3-light-gray w3-bar-block" style="width:15%;">
-	<h3 class="w3-bar-item">Menu</h3>
-	<a href="AggiungiProdottoalCarrello.jsp?user=<%=user%>" class="w3-bar-item w3-button"  >Aggiungi prodotto al carrello</a>
-	<a href="Pagare.jsp?user=<%=user%>" class="w3-bar-item w3-button">Paga</a>
-	<a href="StampaCarrello.jsp?user=<%=user%>" class="w3-bar-item w3-button">Stampa carrello</a>
-	<a href="StampaScontrini.jsp?user=<%=user%>" class="w3-bar-item w3-button">Stampa scontrini</a>
-	<a href="MenuPrincipale.jsp" class="w3-bar-item w3-button">Esci</a>
-	<div style="text-align: center;margin-top:150%;">
-		<img src="https://i.ibb.co/72fjqFm/Logo-Sample-By-Tailor-Brandspng.png">
-	</div>
-</div>
- 
 <!-- Page Content -->
 <div >
 
 
-<div class="w3-container" style="background-color: black;color: white;margin-left: 15%;">
+<div class="w3-container" style="background-color: black;color: white;">
   <h1 style="font-family: cursive;">Ortofrutta WebApp</h1>
 </div>
 
-<div class="w3-container" style="margin-left: 15%;">
+<div class="w3-container">
 	<h2>Benvenuti nel mio WebStore Online</h2>
 	<div style="text-decoration: underline; ">
 		<p>Salve a tutti vi mostro il mio sito di Frutta e Verdura virtuale, Spero possa piacervi.</p>
@@ -76,39 +63,7 @@ th {
 		<p>A destra troverete un Menu con le possibili scelte...</p>
 		<p>Un grosso e caloroso abraccio dallo Staff a tutti voi momelli !!</p>
 	</div>
-		<div>
-		<h2>Lista dei prodotti ortofrutticoli</h2>
-	
-	    <%
-			GestioneProdottiDB gs = new GestioneProdottiDB();
-		%>
-		<%
-			List<Prodotto> listaProdotti = (List<Prodotto>) new ArrayList<>(gs.creaMappa().values());
-		%>
-	
-		<table>
-			<tr>
-				<th>iD-Prodotto</th>
-				<th>Nome</th>
-				<th>Quantit&#224</th>
-				<th>Prezzo</th>
-				<th>Informazioni</th>
-			</tr>
-			<%
-				for (Prodotto p : listaProdotti) {
-			%>
-			<tr>
-				<td><%=p.getiD()%></td>
-				<td><%=p.getNome().toUpperCase()%></td>
-				<td><%=p.getQuantita()%>pz</td>
-				<td><%=p.getPrezzo()%>&#x20ac</td>
-				<td><%=p.getDescrizione().toLowerCase()%></td>
-			</tr>
-			<%
-				}
-			%>
-		</table>
-	</div>
+		
 	<div>
 		<h2>Lista Scontrini</h2>
 	
@@ -144,7 +99,9 @@ th {
 	</div>
 	</div>
 </div>
-
+	<form action="MenuPrincipaleClienti.jsp" style="text-align: right;">
+		<input type="hidden" name="user" id="user" value="<%=user%>">
+		<input style="margin-left:23%;margin-top:0.5%;padding: 8px;" type="submit" value="<===">
 </div>
 <% } %>
 </body>
