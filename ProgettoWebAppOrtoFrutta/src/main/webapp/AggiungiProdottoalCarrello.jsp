@@ -70,7 +70,7 @@ th {
 		<form action="AggiungiCarello" method="Post">
 			<label for="user">Username:<%=user%></label>
 			<input type="hidden" name="user" id="user" value="<%=user%>"><br>		
-			<label for="Data">Inserisci quantita da aggiungere:</label>
+			<label for="Data">Che giorno è :</label>
 			<input style="margin-top:0.5%;" type="date" name="Data" id="Data"  ><br>		
 			<label style="margin-top: 0.5%;" for="iD">iD-prodotto:</label>
 			<select style="margin-top: 0.5%;" name = "iD">

@@ -51,26 +51,17 @@ th {
 
 
 <div class="w3-container" style="background-color: black;color: white;">
-  <h1 style="font-family: cursive;">Ortofrutta WebApp</h1>
+  <h1 style="font-family: cursive;text-align: center;">Ortofrutta WebApp</h1>
 </div>
 
-<div class="w3-container">
-	<h2>Benvenuti nel mio WebStore Online</h2>
-	<div style="text-decoration: underline; ">
-		<p>Salve a tutti vi mostro il mio sito di Frutta e Verdura virtuale, Spero possa piacervi.</p>
-		<p>Ci scusiamo per l'assenza ma con questo CoronaVirus le verdure vanno a rubaaa!!</p>
-		<p>Speriamo di esservi il più possibile d'aiuto.</p>
-		<p>A destra troverete un Menu con le possibili scelte...</p>
-		<p>Un grosso e caloroso abraccio dallo Staff a tutti voi momelli !!</p>
-	</div>
+<div class="w3-container" style="text-align: center;">
+
 		
 	<div>
-		<h2>Lista Scontrini</h2>
+		<h2>Lista scontrini di:"<%=user%>";</h2>
 	
 	    <%
 			GestioneScontriniCarrelli gestioneScontriniCarrelli = new GestioneScontriniCarrelli();
-		%>
-		<%
 			List<Scontrino> listaScontrini = (List<Scontrino>) new ArrayList<>(gestioneScontriniCarrelli.mappaScontrini().values());
 		%>
 	

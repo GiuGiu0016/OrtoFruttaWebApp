@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="it.dstech.models.Carrello"%>
 <%@page import="it.dstech.database.GestioneScontriniCarrelli"%>
 <%@page import="it.dstech.models.Scontrino"%>
 <%@page import="it.dstech.models.Prodotto"%>
@@ -50,67 +51,47 @@ th {
 		} else {
 	%>
 <!-- Page Content -->
+<div >
     	<%
+    		long id = Long.parseLong(request.getParameter("iD"));
 			GestioneScontriniCarrelli gestioneScontriniCarrelli = new GestioneScontriniCarrelli();
-			List<Scontrino> listaScontrini = (List<Scontrino>) new ArrayList<>(gestioneScontriniCarrelli.mappaScontrini().values());
+			List<Carrello> listaCarrello = gestioneScontriniCarrelli.Carrello(id);
 		%>
 
-<div >
 
-		<div class="w3-container" style="background-color: black;color: white; text-align: center;">
-		  <h1 style="font-family: cursive;">Ortofrutta WebApp</h1>
-		</div>
-		
-		<div class="w3-container" style="text-align: center;">
-			<h2>Aggiungi un prodotto al carrello:</h2>
-			<div style="text-decoration: underline; ">
-			<p>Inserisci i dati richiesti.</p>
-		</div>
-		
-		<form action="Carrello.jsp" method="Post">
-			<label for="user">Username:<%=user%></label>
-			<input type="hidden" name="user" id="user" value="<%=user%>"><br>			
-			<label style="margin-top: 0.5%;" for="iD">iD-Scontrino:</label>
-			<select style="margin-top: 0.5%;" name = "iD">
-			<% for (Scontrino scontrino : listaScontrini){%>
-			  <option value="<%=scontrino.getId()%>"><%=scontrino.getId()%></option>
-			  <% } %>
-			</select><br>				
-			<input style="padding: 8px;margin-left:24%;margin-top:0.5%;" type="submit" value="===>" >
-		</form> 
-
-		<form action="MenuPrincipaleClienti.jsp">
-		<input type="hidden" name="user" id="user" value="<%=user%>">
-		<input style="margin-left:23%;margin-top:0.5%;padding: 8px;" type="submit" value="<===">
-		</form>
+	<div class="w3-container" style="background-color: black;color: white; text-align: center;">
+	  <h1 style="font-family: cursive;">Ortofrutta WebApp</h1>
 	</div>
+		
 	<div style="text-align: center;margin-top: 2%;">
-		<h2>Lista Scontrini</h2>
+		<label  for="user">Username: "<%=user%>";</label>
+		<h2>Lista prodotti, iD-Scontrino:"<%=id%>";</h2>
 	
 	
 		<table>
 			<tr>
-				<th>iD-Scontrino</th>
-				<th>Data</th>
-				<th>Costo</th>
-				<th>User</th>
+				<th>Nome Prodotto</th>
+				<th>Quantita Acquistata</th>
+				<th>Prezzo Articolo * Quantita</th>
 			</tr>
 			<%
-				for (Scontrino s : listaScontrini) {
-					if(s.getUser().equals(user)){
+				for (Carrello c : listaCarrello) {
 			%>
 			<tr>
-				<td><%=s.getId()%></td>
-				<td><%=s.getData()%></td>
-				<td><%=s.getSommaPrezzo()%>&#x20ac</td>
-				<td><%=s.getUser()%></td>
+				<td><%=c.getNome()%></td>
+				<td><%=c.getQuantita()%></td>
+				<td><%=c.getPrezzo()%></td>
 			</tr>
 			<%
-					}
 				}
 			%>
 		</table>
+		<form action="StampaCarrello.jsp" method="Post">
+			<input type="hidden" name="user" id="user" value="<%=user%>">							
+		<input style=" padding: 8px;margin-top: 0.5%;margin-left: 80%; " type="submit" value="<===">
+		</form>
 	</div>
+	
 </div>
 <% } %>
 </body>

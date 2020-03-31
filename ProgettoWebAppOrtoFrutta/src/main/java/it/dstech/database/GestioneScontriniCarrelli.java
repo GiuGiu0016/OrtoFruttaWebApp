@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import it.dstech.models.Carrello;
 import it.dstech.models.Prodotto;
 import it.dstech.models.Scontrino;
 
@@ -32,7 +35,7 @@ public class GestioneScontriniCarrelli {
 	return true;
 	}
 
-	private long ultimoScontrino(String username) throws SQLException, ClassNotFoundException {
+	public long ultimoScontrino(String username) throws SQLException, ClassNotFoundException {
 		String query = "SELECT max(idscontrini) FROM scontrini where Username=\""+username+"\" ;";
 		Statement statement = con().createStatement();
 		ResultSet resultSet = statement.executeQuery(query);
@@ -112,6 +115,31 @@ public class GestioneScontriniCarrelli {
 		mappa.put(idScontrino, scontrino);
 		}
 		return mappa;
+	}
+	
+	public List<Carrello> Carrello(long idScontrino) throws ClassNotFoundException, SQLException{
+		GestioneProdottiDB gest = new GestioneProdottiDB();
+		List<Carrello> carrello = new ArrayList<>();
+		String query = "SELECT * FROM ortofrutta.carrelli where iDScontrino = "+idScontrino+";";
+		Statement statement = con().createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		while(resultSet.next()) {
+			String nome = resultSet.getString("Prodotto");
+			int quantita = resultSet.getInt("Quantita");
+			double prezzo = resultSet.getDouble("PrezzoProdotto");
+			Carrello c = new Carrello(nome, prezzo, quantita);
+			carrello.add(c);
+		}
+		return carrello;
+	}
+	
+	public boolean aggiornaPagamento(String user) throws ClassNotFoundException, SQLException {
+		String query = "update scontrini set Status = ? where idscontrini = ? ;";
+		PreparedStatement preparedStatement = con().prepareStatement(query);
+		preparedStatement.setString(1, "Pagato");
+		preparedStatement.setLong(2, ultimoScontrino(user));
+		preparedStatement.execute();
+		return true;
 	}
 	
 }
